@@ -1,0 +1,48 @@
+// *** Generate everything with helpers ***
+
+.d-none-m {
+    display: none;
+}
+
+@media only screen and (min-width: 1024px) {
+    .d-none-m {
+        display: block;
+        display: unset;
+    }
+    .d-none-d {
+        display: none;
+    }
+}
+
+.d-none {
+    display: none !important;
+}
+
+.no-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+.align-center {
+    text-align: center;
+}
+.align-right {
+    text-align: right;
+}
+
+// *** Margin, padding and font size helpers ***
+
+@include t-shirt-loop(".margin-bt", margin-bottom);
+@include t-shirt-loop(".margin-hz", margin-left margin-right);
+@include t-shirt-loop(".padding-all", padding);
+@include t-shirt-loop(".padding-bt", padding-bottom);
+@include t-shirt-loop(".padding-hz", padding-left padding-right);
+@include t-shirt-loop(".padding-vt", padding-top padding-bottom);
+@include t-shirt-loop(".font-size", font-size);
+
+// *** Colors ***

@@ -1,0 +1,27 @@
+@keyframes fadein-frames {
+    0% {
+        opacity: 0;
+    }
+    99% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout-frames {
+    0% {
+        opacity: 1;
+    }
+    99% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+$fade-in: .64s fadein-frames ease-out both normal;
+$fade-out: .64s fadeout-frames ease-out both normal;
+$transition-function: .48s cubic-bezier(0.22, 0.61, 0.36, 1);

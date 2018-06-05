@@ -1,0 +1,105 @@
+@import "./../core/settings";
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+form {
+    .field {
+        display: flex;
+        flex-direction: column-reverse;
+        margin-bottom: map-get($sizes, "m");
+    }
+
+    & > .field:last-child {
+        margin-bottom: 0;
+    }
+
+    .inline-fields {
+        display: flex;
+
+        & > * {
+            flex: 1;
+            margin-right: map_get($sizes, "s");
+
+            &:last-child{
+                margin-right: initial;
+            }
+        }
+    }
+}
+
+label {
+    display: block;
+    color: $color-nickel;
+    font-size: .7rem;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    transition: color 200ms linear;
+}
+
+input, select, textarea {
+    border: 0;
+    border-bottom: 1px solid $color-nickel;
+    padding: .5rem .5rem .5rem 0;
+    outline: none;
+    transition: border-bottom-color 200ms linear;
+    width: 100%;
+
+    &:focus {
+        border-bottom-color: $color-bittersweet;
+
+        & + label {
+            color: $color-bittersweet;
+        }
+    }
+}
+
+input[type=submit], input[type=reset], button {
+    color: $color-nickel;
+    border: 1px solid $color-ghost-white;
+    background-color: rgba($color-ghost-white, .95);
+    box-shadow: 0 0 .7rem 0 rgba($color-ghost-white, .8);
+    border-radius: $bradius-s;
+    width: auto;
+    padding: .5rem 1rem;
+    align-self: center;
+    transition: box-shadow 100ms linear;
+
+    &:active {
+        box-shadow: none !important;
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &.process {
+        position: relative;
+        color: $color-ballblue;
+    }
+
+    &.process:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        margin-top: -10px;
+        margin-left: -10px;
+        border-radius: 50%;
+        border-top: 2px solid $color-white;
+        border-right: 2px solid transparent;
+        animation: spinner .6s linear infinite;
+    }
+
+    &.primary {
+        color: $color-white;
+        border: 1px solid $color-ballblue;
+        background-color: rgba($color-ballblue, .95);
+        box-shadow: 0 0 .7rem 0 rgba($color-ballblue, .8);
+    }
+}

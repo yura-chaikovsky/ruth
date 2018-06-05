@@ -1,0 +1,22 @@
+@import "./../../common/styles/core/settings";
+
+.srm-list {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding-top: $header-height;
+    overflow: auto;
+
+    ul > li {
+        height: 12rem;
+
+        &:active, &:hover, {
+
+
+        }
+    }
+
+}

@@ -1,0 +1,37 @@
+// *** Colors ***
+
+$color-white: #ffffff;
+$color-ghost-white: #f7f7ff;
+$color-nickel: #707172;
+$color-richblack: #010007;
+$color-bittersweet: #f6775d;
+$color-bittersweet-shadow: #e3816d;
+$color-ballblue: #23b5d3;
+
+// *** Breakpoints ***
+
+$mobile-portrait: 480px landscape;
+$mobile-landscape: 768px portrait;
+$tablet-portrait: 768px landscape;
+$tablet-landscape: 1024px portrait;
+$desktop-mdpi: 1280px;
+
+// *** Margin and padding sizes ***
+
+$page-width: 80rem;
+$header-height: 3rem;
+
+$sizes: (
+        n: 0,
+        xs: .5rem,
+        s: 1rem,
+        m: 1.5rem,
+        l: 2rem,
+        xl: 2.5rem,
+        xxl: 3rem
+);
+
+// *** Border radius sized ***
+
+$bradius-s: .16rem;
+$bradius-m: .32rem;

@@ -1,0 +1,43 @@
+@import "./../core/settings";
+
+.screen {
+    margin: $header-height auto 0 auto;
+    padding-top: .5rem;
+
+    @include after($mobile-landscape) {
+        width: $page-width;
+    }
+}
+
+.coaster-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: space-between;
+
+    .coaster {
+        @include after($mobile-landscape) {
+            width: 32%;
+        }
+    }
+}
+
+.coaster {
+    box-shadow: 0 0 4px 0 rgba($color-nickel, .2);
+    border-radius: $bradius-m;
+    width: 100%;
+}
+
+.message {
+    &.info{
+        font-style: italic;
+        padding: map_get($sizes, "s");
+        border: 1px solid $color-ghost-white;
+        border-radius: $bradius-m;
+    }
+}
+
+.page-wrapper{
+    max-width: 60rem;
+    margin: 0 auto;
+}

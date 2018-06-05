@@ -1,0 +1,50 @@
+@import "./../core/settings";
+
+.navigation-head {
+    height: $header-height;
+    color: $color-white;
+    background-color: rgba($color-bittersweet, .95);
+    box-shadow: 0 0 7px 2px $color-bittersweet-shadow;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+}
+
+.navigation-button {
+    border-radius: $bradius-m;
+    height: map_get($sizes, "l");
+    width: map_get($sizes, "l");
+    text-align: center;
+    display: flex;
+    justify-content: center;
+
+    &:active {
+        background-color: $color-bittersweet-shadow;
+    }
+
+    em {
+        display: block;
+        border-radius: 50%;
+        height: .5 * map_get($sizes, "xs");
+        width: .5 * map_get($sizes, "xs");
+        margin-top: .15 * map_get($sizes, "l");
+        background-color: $color-ghost-white;
+        box-shadow: 0 ( .7 * map_get($sizes, "l") - .5 * map_get($sizes, "xs") ) / 2 0 0 $color-ghost-white,
+                    0 ( .7 * map_get($sizes, "l") - .5 * map_get($sizes, "xs") )     0 0 $color-ghost-white;
+    }
+}
+
+.site-logo {
+    font-family: 'Bubblegum Sans', cursive;
+    flex: 1;
+    text-align: center;
+    padding-right: map_get($sizes, "l");
+    margin-top: 3px;
+
+    @include after($mobile-portrait) {
+        text-align: left;
+    }
+}

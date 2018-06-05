@@ -1,0 +1,74 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Bubblegum+Sans');
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v14/RjgO7rYTmqiVp7vzi-Q5UbO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://fonts.gstatic.com/s/opensans/v14/k3k702ZOKiLJc3WVjuplzAcuEIXEaFWBWXA4NoGd_Oo.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-stretch: condensed;
+    src: local('Open Sans Condensed Bold'), local('OpenSansCondensed-Bold'), url(https://fonts.gstatic.com/s/opensanscondensed/v11/gk5FxslNkTTHtojXrkp-xMNaDlDy7POWxZmljpz9HHLr7w4p9aSvGirXi6XmeXNA.woff) format('woff');
+}
+
+body {
+    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: $color-richblack;
+    //line-height: 1.6;
+    font-weight: 400;
+
+    @at-root &,html {
+        font-size: 12px;
+
+        @include after(321px) {
+            font-size: 14px;
+        }
+
+        @include after(377px) {
+            font-size: 16px;
+        }
+
+        @include after($tablet-landscape) {
+            font-size: 12px;
+        }
+    }
+}
+
+ul.no-list {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+a {
+    color: $color-bittersweet;
+    text-decoration: underline;
+}
+
+.action {
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+        //background-color: $color-ghost-white;
+    }
+
+    &:active {
+        background: rgba($color-bittersweet, .3);
+    }
+}
+
+h1,h2,h3,h4 {
+    text-align: center;
+}

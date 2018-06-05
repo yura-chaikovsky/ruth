@@ -1,0 +1,55 @@
+@import "./animations";
+
+// *** Media Queries ***
+
+@mixin after($breakpoint) {
+    $width: nth($breakpoint, 1);
+
+    @if (length($breakpoint) > 1) {
+        @media (min-width: $width + 1), (min-width: $width) and (orientation: nth($breakpoint, 2)) {
+            @content;
+        }
+    } @else {
+        @media (min-width: $width) {
+            @content;
+        }
+    }
+}
+
+// *** Looper by t-shirt sizes (s,m,l,xl) ***
+
+@mixin t-shirt-loop($selector, $properties) {
+    @each $title, $value in $sizes {
+        #{$selector}-#{$title} {
+            @each $prop in $properties {
+                #{$prop}: $value;
+            }
+        }
+    }
+}
+
+// *** Transition mixin ***
+
+@mixin transition($properties: transform) {
+    transition: $properties $transition-function;
+}
+
+
+// *** Find contrast color for typography ***
+@function brightness($color) {
+    @return ((red($color) * .299) + (green($color) * .587) + (blue($color) * .114)) / 255 * 100%;
+}
+
+@function color-contrast($color, $dark: $dark-text-default, $light: $light-text-default) {
+    // Compares contrast of a given color to the light/dark arguments and returns whichever is most "contrasty"
+    @if $color == null {
+        @return null;
+    }
+    @else {
+        $color-brightness: brightness($color);
+        $light-text-brightness: brightness($light);
+        $dark-text-brightness: brightness($dark);
+
+        @return if(abs($color-brightness - $light-text-brightness) > abs($color-brightness - $dark-text-brightness), $light, $dark);
+    }
+}

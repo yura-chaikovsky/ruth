@@ -1,0 +1,38 @@
+{
+  "name": "ruth",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Yura Chaikovsky",
+  "license": "MIT",
+  "browser": "./src/core.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/.bin/webpack-dev-server --open",
+    "build": "./node_modules/.bin/webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yura-chaikovsky/ruth.git"
+  },
+  "directories": {
+    "lib": "./src/"
+  },
+  "dependencies": {
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^1.1.11",
+    "node-sass": "^4.9.0",
+    "s-array": "^0.4.9",
+    "s-js": "^0.4.8",
+    "sass-loader": "^7.0.1",
+    "surplus": "^0.5.2",
+    "surplus-loader": "^0.5.0",
+    "webpack": "^4.10.0",
+    "webpack-cli": "^2.1.4",
+    "wrap-loader": "^0.2.0"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.1.4"
+  }
+}

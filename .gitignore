@@ -1,0 +1,15 @@
+# compiled output
+/dist
+/tmp
+
+# dependencies
+node_modules
+
+# IDEs and editors
+.vs
+.vscode
+.idea
+
+#System Files
+.DS_Store
+Thumbs.db
