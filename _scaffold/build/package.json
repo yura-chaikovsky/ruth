@@ -11,6 +11,6 @@
   "author": "Yura Chaikovsky",
   "license": "MIT",
   "dependencies": {
-    "ruth": "file:../.."
+    "ruth": "git+https://github.com/yura-chaikovsky/ruth.git"
   }
 }
