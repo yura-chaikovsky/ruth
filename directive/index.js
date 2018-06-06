@@ -30,6 +30,7 @@ class DirectiveConstructor {
 
     constructor(options, scope) {
         this.$options = Object.assign({
+            name: "",
             events: {},
             view: null,
             init: () => {
