@@ -3,22 +3,37 @@ export const Form = {
         let el;
         let value;
 
-        const accessor = (obj, is, value, type = {}) => {
-            if (typeof is == 'string') {
-                return accessor(obj, is.split('.'), value, type);
-            } else if (is.length == 1 && value !== undefined) {
-                !obj[is[0]] && (obj[is[0]] = new type.constructor);
-                if (Array.isArray(obj[is[0]])) {
-                    obj[is[0]].push(value)
-                } else {
-                    obj[is[0]] = value
-                }
-                return obj[is[0]];
-            } else if (is.length == 0) {
-                return obj;
+        const accessor = (obj, keys, value) => {
+
+            let key = keys.shift();
+            let container, pattern;
+
+            if (Array.isArray(obj)) {
+                container = {}
+                obj.push(container)
             } else {
-                !obj[is[0]] && (obj[is[0]] = {});
-                return accessor(obj[is[0]], is.slice(1), value, type);
+                container = obj;
+            }
+
+            if (pattern = key.match(/\[(\d*)\]$/)) {
+                key = key.slice(0, pattern.index);
+                (!container[key]) && (container[key] = []);
+                if (container[key][pattern[1]]) {
+                    container = container[key];
+                    key = pattern[1];
+                }
+            } else {
+                (!container[key]) && (container[key] = {});
+            }
+
+            if (keys.length === 0) {
+                if (Array.isArray(container[key])) {
+                    container[key].push(value);
+                } else {
+                    container[key] = value;
+                }
+            } else {
+                accessor(container[key], keys, value);
             }
         };
 
@@ -36,7 +51,7 @@ export const Form = {
                     value = el.value;
                 }
 
-                accessor(data, el.name, value, {});
+                accessor(data, el.name.split("."), value, {});
             }
 
         }
@@ -47,9 +62,6 @@ export const Form = {
     updateSignals(form, signals) {
         const model = this.serialize(form);
         Object.keys(model).forEach(key => signals[key](model[key]));
-    },
-
-    uuid(a) {
-        return a ? (a ^ Math.random() * 16 >> a / 4).toString(16) : ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, this.uuid);
     }
+
 }
