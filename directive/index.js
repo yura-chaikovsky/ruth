@@ -20,7 +20,7 @@ export class Directive {
             });
 
             return (new DirectiveConstructor(options, directiveScope)).$dom;
-        }
+        };
 
         return Ruth[options.name];
     }
@@ -41,13 +41,13 @@ class DirectiveConstructor {
             if (typeof scope[key] === "function" && scope[key].name !== "data") {
                 scope[key] = scope[key].bind(this);
             }
-        })
+        });
 
         Object.assign(this, scope);
-        this.$createDircetive();
+        this.$createDirective();
     }
 
-    $createDircetive() {
+    $createDirective() {
         this.$options.init.call(this);
 
         S(() => this.$dom = this.$options.view(this, Ruth));
