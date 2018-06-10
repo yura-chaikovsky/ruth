@@ -3,8 +3,8 @@
 /tmp
 
 # dependencies
-/node_modules
-/config/config.prod.js
+node_modules
+config/config.prod.js
 
 # IDEs and editors
 .vs
