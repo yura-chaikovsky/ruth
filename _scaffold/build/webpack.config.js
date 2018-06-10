@@ -4,7 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 
-const BUILD_PATH = './dist';
+const BUILD_PATH = path.join(__dirname, './../dist');
 const MODE = 'development';
 
 module.exports = {
@@ -27,7 +27,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin([BUILD_PATH]),
+        new CleanWebpackPlugin([BUILD_PATH], {root: path.join(__dirname, './../')}),
         new Webpack.ProvidePlugin({Surplus: 'surplus'}),
         new ExtractTextPlugin("main.css", {options: {allChunks: true}})
     ],
