@@ -11,15 +11,16 @@ export class Page {
             mountTo: "body",
             events: {},
             view: null,
-            init: () => {
-            }
+            init: () => {},
+            mount: () => {},
+            unmount: () => {}
         }, options);
 
         Object.keys(scope).forEach(key => {
             if (typeof scope[key] === "function" && scope[key].name !== "data") {
                 scope[key] = scope[key].bind(this);
             }
-        })
+        });
 
         Object.assign(this, scope);
         this.$createPage();
@@ -29,25 +30,19 @@ export class Page {
         this.$root = document.querySelector(this.$options.mountTo);
 
         S.root(dispose => {
-            console.info('Call $createPage()');
-
-            if (this.$options.view) {
-                this.$dom = this.$options.view(this, Ruth);
-            }
-
             S(() => {
                 console.info('Call $watchRoute from $createPage()');
                 this.$watchRoute(dispose);
             });
-
         });
     }
 
     $watchRoute(dispose) {
         console.info('Execute $watchRoute', this.constructor.name);
-        const routeMatches = !!Routing.state().pathname.match(this.$options.pathname);
+        const routeMatches = Routing.state().pathname.match(this.$options.pathname);
 
         if (routeMatches && !this.$mounted) {
+            this.$options.routeMatches = routeMatches;
             Promise.all([this.$options.init.call(this)]).then(this.$mountPage.bind(this));
         } else if (!routeMatches && this.$mounted) {
             this.$unmountPage();
@@ -56,6 +51,8 @@ export class Page {
 
     $mountPage() {
         if (this.$options.view) {
+            this.$dom = this.$options.view(this, Ruth);
+            this.$options.mount.call(this);
             this.$root.appendChild(this.$dom);
         }
 
@@ -69,6 +66,7 @@ export class Page {
         }
 
         this.$bindEvents(false);
+        this.$options.unmount.call(this);
         this.$mounted = false;
     }
 
