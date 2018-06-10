@@ -4,9 +4,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 
-const BUILD_PATH = './../dist';
+const BUILD_PATH = './dist';
 const MODE = 'development';
-// //"ruth": "git+https://github.com/yura-chaikovsky/ruth.git",
 
 module.exports = {
     mode: MODE,
@@ -29,10 +28,11 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin([BUILD_PATH]),
-        new Webpack.ProvidePlugin({Surplus: 'Surplus'}),
+        new Webpack.ProvidePlugin({Surplus: 'surplus'}),
         new ExtractTextPlugin("main.css", {options: {allChunks: true}})
     ],
     devServer: {
+        contentBase: path.resolve(__dirname, "../src/assets/"),
         compress: false,
         historyApiFallback: true,
         hot: false,
