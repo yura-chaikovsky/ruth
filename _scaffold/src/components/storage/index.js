@@ -28,4 +28,4 @@ export const StoragePage = new Page(
             alert("Hi!", this.$options.pathname);
         }
     }
-)
+);

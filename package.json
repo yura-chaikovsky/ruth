@@ -18,20 +18,17 @@
     "lib": "./src/"
   },
   "dependencies": {
-    "clean-webpack-plugin": "^0.1.19",
-    "copy-webpack-plugin": "^4.5.1",
-    "css-loader": "^0.28.11",
+    "clean-webpack-plugin": "^1.0.0",
+    "copy-webpack-plugin": "^4.6.0",
+    "css-loader": "^2.1.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "file-loader": "^1.1.11",
-    "node-sass": "^4.9.0",
-    "s-array": "^0.4.9",
-    "s-js": "^0.4.8",
-    "sass-loader": "^7.0.1",
-    "surplus": "^0.5.2",
-    "surplus-loader": "^0.5.0",
-    "webpack": "^4.10.0",
-    "webpack-cli": "^2.1.4",
-    "webpack-dev-server": "^3.1.4",
+    "file-loader": "^3.0.1",
+    "html2js-compiler": "^0.0.5",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.14",
     "wrap-loader": "^0.2.0"
   }
 }
