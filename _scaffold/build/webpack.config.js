@@ -23,7 +23,7 @@ module.exports = {
     },
     module: {
         rules: [
-            {test: /\.tpl?$/, use: ["./template-post-loader.js", "surplus-loader", "./template-pre-loader.js",] },
+            {test: /\.tpl?$/, use: ["./html2js-loader.js"] },
             {test: /\.scss$/, use: ExtractTextPlugin.extract({use: ["css-loader", "sass-loader"]}) },
             {test: /\.(png|jpg|gif|html)$/, use: ["file-loader?name=[name].[ext]"]}
         ]
