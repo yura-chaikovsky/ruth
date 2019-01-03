@@ -14,7 +14,6 @@ Ruth.addComponent(i18n);
 Ruth.initComponents();
 
 export * from "./core";
-export * from "./data-source";
 export * from "./directive";
 export * from "./form";
 export * from "./http";

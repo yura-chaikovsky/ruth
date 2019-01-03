@@ -1,4 +1,3 @@
-import S from "s-js";
 import {Ruth, Routing} from "./../index";
 
 
@@ -28,16 +27,11 @@ export class Page {
 
     $createPage() {
         this.$root = document.querySelector(this.$options.mountTo);
-
-        S.root(dispose => {
-            S(() => {
-                console.info('Call $watchRoute from $createPage()');
-                this.$watchRoute(dispose);
-            });
-        });
+        console.info('Call $watchRoute from $createPage()');
+        this.$watchRoute();
     }
 
-    $watchRoute(dispose) {
+    $watchRoute() {
         console.info('Execute $watchRoute', this.constructor.name);
         const routeMatches = Routing.state().pathname.match(this.$options.pathname);
 

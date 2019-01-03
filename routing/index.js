@@ -1,6 +1,3 @@
-import S from "s-js";
-
-
 class RoutingMachine {
 
     constructor() {
@@ -43,20 +40,17 @@ export class StateStorage {
     constructor() {
         this.stateStack = [];
         this.currentStateIndex = 0;
-        this.signalState = S.data();
     }
 
     push(state) {
         this.stateStack.splice(this.currentStateIndex + 1);
         this.currentStateIndex = this.stateStack.push(state) - 1;
-        this.signalState(state);
         return this.currentStateIndex;
     }
 
     go(state) {
         this.currentStateIndex = state.stateIndex;
         this.stateStack[this.currentStateIndex] = state;
-        this.signalState(this.stateStack[this.currentStateIndex]);
     }
 }
 

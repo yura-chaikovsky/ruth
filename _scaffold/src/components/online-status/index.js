@@ -1,5 +1,4 @@
-import S from "s-js";
-import {Ruth, Directive} from "ruth";
+import {Directive} from "ruth";
 import SView from "./index.tpl";
 import "./index.scss";
 
@@ -16,7 +15,7 @@ export const OnlineStatus = new Directive(
         }
     },
     {
-        status: S.data(window.navigator.onLine? "online" : "offline"),
+        status: window.navigator.onLine? "online" : "offline",
 
         logMove(event) {
             console.log(event.clientX + "," + event.clientY);

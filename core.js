@@ -1,5 +1,3 @@
-import S from "s-js";
-
 const RuthComponentsMap = new Map();
 const RuthPagesMap = new Map();
 
@@ -35,16 +33,19 @@ export const Ruth = {
         });
     },
 
-    boot() {
-        S.root(() => {
-            RuthPagesMap.forEach((page, pathname) => {
-                Object.defineProperty(this.pages, pathname, {
-                    value: new (page.controller),
-                    writable: false,
-                    enumerable: true,
-                    configurable: false
-                });
+    initPages() {
+        RuthPagesMap.forEach((page, pathname) => {
+            Object.defineProperty(this.pages, pathname, {
+                value: new (page.controller),
+                writable: false,
+                enumerable: true,
+                configurable: false
             });
         });
+    },
+
+    boot() {
+        this.initComponents();
+        this.initPages();
     }
 };

@@ -1,4 +1,3 @@
-import S from "s-js";
 import {Ruth} from "./../index";
 
 
@@ -12,11 +11,7 @@ export class Directive {
         Ruth[options.name] = function ({scope = {}}) {
             const directiveScope = Object.assign({}, rootScope);
             Object.keys(scope).forEach(key => {
-                if (typeof directiveScope[key] === "function" && directiveScope[key].name === "data") {
-                    directiveScope[key] = S.data(scope[key]);
-                } else {
-                    directiveScope[key] = scope[key];
-                }
+                directiveScope[key] = scope[key];
             });
 
             return (new DirectiveConstructor(options, directiveScope)).$dom;
@@ -38,7 +33,7 @@ class DirectiveConstructor {
         }, options);
 
         Object.keys(scope).forEach(key => {
-            if (typeof scope[key] === "function" && scope[key].name !== "data") {
+            if (typeof scope[key] === "function") {
                 scope[key] = scope[key].bind(this);
             }
         });
@@ -49,9 +44,7 @@ class DirectiveConstructor {
 
     $createDirective() {
         this.$options.init.call(this);
-
-        S(() => this.$dom = this.$options.view(this, Ruth));
-
+        this.$dom = this.$options.view(this, Ruth)
         this.$bindEvents(true);
     }
 

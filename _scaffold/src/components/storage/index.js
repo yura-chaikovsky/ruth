@@ -1,4 +1,3 @@
-import S from "s-js";
 import {Page} from "ruth";
 import SView from "./index.tpl";
 
@@ -12,14 +11,14 @@ export const StoragePage = new Page(
             "click pre": "sayHi"
         },
         init() {
-            this.storageSize((window.localStorage.vault.length / 1024).toFixed(2));
-            this.storageDump(JSON.stringify(JSON.parse(window.localStorage.vault), null, 4));
+            this.storageSize = (window.localStorage.vault.length / 1024).toFixed(2);
+            this.storageDump = JSON.stringify(JSON.parse(window.localStorage.vault), null, 4);
         }
     },
 
     {
-        storageSize: S.data(),
-        storageDump: S.data(),
+        storageSize: 0,
+        storageDump: 0,
 
         refresh () {
             this.$options.init.call(this);
