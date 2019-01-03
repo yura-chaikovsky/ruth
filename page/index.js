@@ -33,7 +33,7 @@ export class Page {
 
     $watchRoute() {
         console.info('Execute $watchRoute', this.constructor.name);
-        const routeMatches = Routing.state().pathname.match(this.$options.pathname);
+        const routeMatches = Routing.state.pathname.match(this.$options.pathname);
 
         if (routeMatches && !this.$mounted) {
             this.$options.routeMatches = routeMatches;

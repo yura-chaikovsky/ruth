@@ -13,11 +13,11 @@ class RoutingMachine {
     }
 
     get state() {
-        return this.mainStateStorage.signalState;
+        return this.mainStateStorage.current();
     }
 
     get ancillaryState() {
-        return this.ancillaryStateStorage.signalState;
+        return this.ancillaryStateStorage.current();
     }
 
     navigate(newState, replace = false) {
@@ -46,6 +46,10 @@ export class StateStorage {
         this.stateStack.splice(this.currentStateIndex + 1);
         this.currentStateIndex = this.stateStack.push(state) - 1;
         return this.currentStateIndex;
+    }
+
+    current() {
+        return this.stateStack[this.currentStateIndex];
     }
 
     go(state) {
