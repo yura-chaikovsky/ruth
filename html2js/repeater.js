@@ -1,13 +1,11 @@
-const esc = require("html2js-compiler").esc;
 
-
-function addRepeaterNodeTypes(ast) {
+function addRepeaterNodeType(ast) {
     ast.forEach(node => {
         if (node.type === "element") {
             if(node.tagName === "repeat") {
                 node.type = "repeater";
             }
-            addRepeaterNodeTypes(node.children);
+            addRepeaterNodeType(node.children);
         }
     });
 
@@ -27,10 +25,10 @@ function repeaterGenerator(astNode, varName, parentNodeVarName, variables, level
     prefix.push(pad + `for(let ${iteratorsNames["as"]} of ${iteratorsNames["every"]}) {`);
     suffix.push(pad + `}`);
 
-    return {prefix, suffix};
+    return {prefix, suffix, domNode: false};
 }
 
 module.exports = {
-    addRepeaterNodeTypes,
+    addRepeaterNodeType,
     repeaterGenerator
 };

@@ -4,11 +4,11 @@ import {Ruth} from "./../index";
 export class Directive {
 
     constructor(options, rootScope) {
-        if(Ruth[options.name]){
+        if(Ruth.directives[options.name]){
             throw new Error(`Directive '${options.name}' already registered.`);
         }
 
-        Ruth[options.name] = function ({scope = {}}) {
+        Ruth.directives[options.name.toLowerCase()] = function ({scope = {}}) {
             const directiveScope = Object.assign({}, rootScope);
             Object.keys(scope).forEach(key => {
                 directiveScope[key] = scope[key];
@@ -44,7 +44,7 @@ class DirectiveConstructor {
 
     $createDirective() {
         this.$options.init.call(this);
-        this.$dom = this.$options.view(this, Ruth)
+        this.$dom = this.$options.view.call(this, Ruth);
         this.$bindEvents(true);
     }
 

@@ -45,7 +45,7 @@ export class Page {
 
     $mountPage() {
         if (this.$options.view) {
-            this.$dom = this.$options.view(this, Ruth);
+            this.$dom = this.$options.view.call(this, Ruth);
             this.$options.mount.call(this);
             this.$root.appendChild(this.$dom);
         }

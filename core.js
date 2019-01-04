@@ -5,6 +5,7 @@ const RuthPagesMap = new Map();
 export const Ruth = {
 
     pages: {},
+    directives: {},
 
     addComponent(component) {
         if (component.name in RuthComponentsMap) {

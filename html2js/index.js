@@ -1,19 +1,28 @@
 const compile = require("html2js-compiler").compile;
+const reference = require("./reference");
+const entities = require("./entities");
 const repeater = require("./repeater");
+const directive = require("./directive");
 
 
 const compilerOptions = {
     parser: {
-        maps: [repeater.addRepeaterNodeTypes],
+        maps: [
+            entities.replaceHtmlEntities,
+            reference.replaceDotReference,
+            directive.addDirectiveNodeType,
+            repeater.addRepeaterNodeType
+        ],
         removeEmptyNodes: true
     },
     compiler: {
         generators: {
+            "directive": directive.directiveGenerator,
             "repeater": repeater.repeaterGenerator
         }
     }
 };
 
 module.exports = function (content) {
-    return "module.exports = () => {\n" + compile(content, compilerOptions) + "    return el_0;\n}";
+    return "module.exports = function (Ruth) {\n" + compile(content, compilerOptions) + "\n    return el_0;\n}";
 };
