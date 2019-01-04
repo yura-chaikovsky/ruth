@@ -4,7 +4,6 @@ function replaceAnchorReference(ast) {
         if (node.type === "element") {
             if(node.tagName === "a") {
                 node.attributes.some(attr => {
-                    console.log(node.tagName, attr);
                     if (attr.key === "href") {
                         if (attr.value[0] === "~") {
                             attr.value = attr.value.substr(1);
