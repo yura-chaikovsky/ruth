@@ -1,3 +1,5 @@
+import {Events} from "../events";
+
 class RoutingMachine {
 
     constructor() {
@@ -28,6 +30,7 @@ class RoutingMachine {
         }
         newState.stateIndex = this.mainStateStorage.push(newState);
         window.history[replace ? "replaceState" : "pushState"](newState, "", newState.pathname);
+        Events.emit("routing");
     }
 
     ancillaryNavigate(newState, replace = false) {

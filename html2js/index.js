@@ -1,6 +1,7 @@
 const compile = require("html2js-compiler").compile;
 const reference = require("./reference");
 const entities = require("./entities");
+const anchors = require("./anchors");
 const repeater = require("./repeater");
 const directive = require("./directive");
 
@@ -10,6 +11,7 @@ const compilerOptions = {
         maps: [
             entities.replaceHtmlEntities,
             reference.replaceDotReference,
+            anchors.replaceAnchorReference,
             directive.addDirectiveNodeType,
             repeater.addRepeaterNodeType
         ],

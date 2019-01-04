@@ -1,4 +1,4 @@
-import {Ruth, Routing} from "./../index";
+import {Ruth, Routing, Events} from "./../index";
 
 
 export class Page {
@@ -27,7 +27,8 @@ export class Page {
 
     $createPage() {
         this.$root = document.querySelector(this.$options.mountTo);
-        console.info('Call $watchRoute from $createPage()');
+        console.info('Call $watchRoute from $createPage()', this);
+        Events.on("routing", this.$watchRoute, this);
         this.$watchRoute();
     }
 
@@ -62,6 +63,7 @@ export class Page {
         this.$bindEvents(false);
         this.$options.unmount.call(this);
         this.$mounted = false;
+        Events.off("routing", this.$watchRoute);
     }
 
     $bindEvents(on) {
