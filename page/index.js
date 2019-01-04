@@ -70,7 +70,8 @@ export class Page {
         Object.keys(this.$options.events).forEach(eventDeclaration => {
             const event = eventDeclaration.substring(0, eventDeclaration.indexOf(" "));
             const label = eventDeclaration.substring(eventDeclaration.indexOf(" ") + 1);
-            this.$root.querySelectorAll(`[data-label=${label}]`).forEach(node => {
+            const selector = label[0] === "$"? `[data-label='${label.substr(1)}']` : label;
+            this.$dom.querySelectorAll(selector).forEach(node => {
                 node[on ? "addEventListener" : "removeEventListener"](event, this[this.$options.events[eventDeclaration]]);
             });
         });
