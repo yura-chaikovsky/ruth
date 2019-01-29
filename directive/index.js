@@ -1,4 +1,4 @@
-import {Ruth} from "./../index";
+import {Events, Ruth} from "./../index";
 
 
 export class Directive {
@@ -24,12 +24,12 @@ export class Directive {
 class DirectiveConstructor {
 
     constructor(options, scope) {
+        this.$elements = {};
         this.$options = Object.assign({
             name: "",
             events: {},
             view: null,
-            init: () => {
-            }
+            init: () => { }
         }, options);
 
         Object.keys(scope).forEach(key => {
@@ -43,20 +43,36 @@ class DirectiveConstructor {
     }
 
     $createDirective() {
-        this.$options.init.call(this);
         this.$dom = this.$options.view.call(this, Ruth);
+        this.$collectElements();
         this.$bindEvents(true);
+        this.$options.init.call(this);
     }
 
     $bindEvents(on) {
         Object.keys(this.$options.events).forEach(eventDeclaration => {
-            const event = eventDeclaration.substring(0, eventDeclaration.indexOf(" "));
-            const label = eventDeclaration.substring(eventDeclaration.indexOf(" ") + 1);
-            const selector = label[0] === "$"? `[data-label='${label.substr(1)}']` : label;
-            this.$dom.querySelectorAll(selector).forEach(node => {
+            let [, event, label, globalObject] = eventDeclaration.match(/^([\w\-]+)(?: (?:(\$\w+)|(window|document)))?$/) || [];
+            let targets;
+
+            if(!event) {
+                throw new Error(`Syntax error in event declaration: ${eventDeclaration}`);
+            }
+
+            if(label) {
+                targets = this.$dom.querySelectorAll(`[data-label='${label.substr(1)}']`);
+            } else if(globalObject) {
+                targets = [ globalObject === "window"? window : document ];
+            } else {
+                targets = [ Events ];
+            }
+
+            targets.forEach(node => {
                 node[on ? "addEventListener" : "removeEventListener"](event, this[this.$options.events[eventDeclaration]]);
             });
         });
     }
 
+    $collectElements() {
+        this.$dom.querySelectorAll("[data-label]").forEach(element => this.$elements[element.dataset.label] = element)
+    }
 }

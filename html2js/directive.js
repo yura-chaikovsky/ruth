@@ -18,7 +18,7 @@ function addDirectiveNodeType(ast) {
 function directiveGenerator(astNode, varName, parentNodeVarName, variables, level) {
     const prefix = [], suffix = [];
     const pad = " ".repeat(4 * level);
-    let scope = "";
+    let scope = "{}";
 
     astNode.attributes.forEach(({key, value}) => {
         if(key === "scope") scope = value;

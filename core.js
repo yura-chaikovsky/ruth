@@ -26,11 +26,14 @@ export const Ruth = {
     initComponents() {
         RuthComponentsMap.forEach((component, name) => {
             Object.defineProperty(this, name, {
-                value: new (component),
+                value: component,
                 writable: false,
                 enumerable: true,
                 configurable: false
             });
+            if(typeof component.boot === "function") {
+                component.boot();
+            }
         });
     },
 
@@ -46,7 +49,9 @@ export const Ruth = {
     },
 
     boot() {
-        this.initComponents();
-        this.initPages();
+        setTimeout(() => {
+            this.initComponents();
+            this.initPages();
+        });
     }
 };

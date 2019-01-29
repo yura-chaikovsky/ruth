@@ -3,14 +3,15 @@ import {Events} from "../events";
 class RoutingMachine {
 
     constructor() {
-
         window.addEventListener('popstate', event => {
-            this.mainStateStorage.go(event.state);
+            this.navigate(event.state);
         });
 
         this.mainStateStorage = new StateStorage();
         this.ancillaryStateStorage = new StateStorage();
+    }
 
+    boot() {
         this.navigate(window.location.pathname, true);
     }
 
@@ -23,13 +24,15 @@ class RoutingMachine {
     }
 
     navigate(newState, replace = false) {
+
         if (typeof newState === "string") {
-            newState = {
-                pathname: newState
-            };
+            newState = { pathname: newState };
+            newState.stateIndex = this.mainStateStorage.push(newState);
+            window.history[replace ? "replaceState" : "pushState"](newState, "", newState.pathname);
+        } else {
+            this.mainStateStorage.go(newState);
         }
-        newState.stateIndex = this.mainStateStorage.push(newState);
-        window.history[replace ? "replaceState" : "pushState"](newState, "", newState.pathname);
+
         Events.emit("routing");
     }
 

@@ -24,9 +24,13 @@ class EventsHandler {
             return;
         }
 
-        eventsMap[eventName].forEach(listener => listener.callback.call(listener.context, data));
+        eventsMap[eventName].forEach(listener => setTimeout(() => listener.callback.call(listener.context, data)));
     }
 }
+
+// aliased for compatibility
+EventsHandler.prototype.addEventListener = EventsHandler.prototype.on;
+EventsHandler.prototype.removeEventListener = EventsHandler.prototype.off;
 
 
 export const Events = new EventsHandler();
