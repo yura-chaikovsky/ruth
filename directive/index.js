@@ -1,4 +1,5 @@
-import {Events, Ruth} from "./../index";
+import {Ruth} from "./../index";
+import Component from "./../component";
 
 
 export class Directive {
@@ -9,27 +10,27 @@ export class Directive {
         }
 
         Ruth.directives[options.name.toLowerCase()] = function ({scope = {}}) {
-            const directiveScope = Object.assign({}, rootScope);
-            Object.keys(scope).forEach(key => {
-                directiveScope[key] = scope[key];
-            });
-
-            return (new DirectiveConstructor(options, directiveScope)).$dom;
+            const directiveScope = Object.assign({}, rootScope, scope);
+            return new DirectiveConstructor(options, directiveScope);
         };
 
         return Ruth[options.name];
     }
 }
 
-class DirectiveConstructor {
+class DirectiveConstructor extends Component {
 
     constructor(options, scope) {
+        super();
+
+        this.$children = [];
         this.$elements = {};
         this.$options = Object.assign({
             name: "",
             events: {},
             view: null,
-            init: () => { }
+            mount: () => { },
+            unmount: () => { }
         }, options);
 
         Object.keys(scope).forEach(key => {
@@ -39,40 +40,19 @@ class DirectiveConstructor {
         });
 
         Object.assign(this, scope);
-        this.$createDirective();
+        this.$create();
     }
 
-    $createDirective() {
+    $create() {
         this.$dom = this.$options.view.call(this, Ruth);
-        this.$collectElements();
-        this.$bindEvents(true);
-        this.$options.init.call(this);
+        super.$create();
+        this.$options.mount.call(this);
     }
 
-    $bindEvents(on) {
-        Object.keys(this.$options.events).forEach(eventDeclaration => {
-            let [, event, label, globalObject] = eventDeclaration.match(/^([\w\-]+)(?: (?:(\$\w+)|(window|document)))?$/) || [];
-            let targets;
-
-            if(!event) {
-                throw new Error(`Syntax error in event declaration: ${eventDeclaration}`);
-            }
-
-            if(label) {
-                targets = this.$dom.querySelectorAll(`[data-label='${label.substr(1)}']`);
-            } else if(globalObject) {
-                targets = [ globalObject === "window"? window : document ];
-            } else {
-                targets = [ Events ];
-            }
-
-            targets.forEach(node => {
-                node[on ? "addEventListener" : "removeEventListener"](event, this[this.$options.events[eventDeclaration]]);
-            });
-        });
+    $destroy() {
+        this.$options.unmount.call(this);
+        this.$elements = {};
+        super.$destroy();
     }
 
-    $collectElements() {
-        this.$dom.querySelectorAll("[data-label]").forEach(element => this.$elements[element.dataset.label] = element)
-    }
 }

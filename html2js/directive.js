@@ -24,7 +24,7 @@ function directiveGenerator(astNode, varName, parentNodeVarName, variables, leve
         if(key === "scope") scope = value;
     });
 
-    prefix.push(pad + `${parentNodeVarName}.appendChild(Ruth.directives["${astNode.tagName.toLowerCase()}"](${scope}))`);
+    prefix.push(pad + `${parentNodeVarName}.appendChild(this.$addChild(Ruth.directives["${astNode.tagName.toLowerCase()}"](${scope})))`);
 
     return {prefix, suffix};
 }

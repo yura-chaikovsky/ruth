@@ -2,7 +2,8 @@ const entitiesMap = {
     "&amp;": "&",
     "&lt;": "<",
     "&gt;": ">",
-    "&deg;": "\u00B0"
+    "&deg;": "\u00B0",
+    "&nbsp;": "\u00A0"
 };
 
 function replaceHtmlEntities(ast) {

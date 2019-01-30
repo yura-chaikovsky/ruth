@@ -12,12 +12,12 @@ window.Routing = Routing;
 Object.assign(Ruth, Tools);
 
 export * from "./core";
-export * from "./directive";
+export * from "./events";
 export * from "./form";
 export * from "./http";
 export * from "./i18n";
-export * from "./events";
 export * from "./page";
+export * from "./directive";
 export * from "./routing";
 export * from "./tools";
 

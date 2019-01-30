@@ -37,6 +37,3 @@ class BeerMapDataSourceSyncQueue extends DataSourceSyncQueue {
         Ruth.dataSource.pushRuntime("remoteSyncing", state);
     }
 }
-
-
-Ruth.addComponent("dataSource", BeerMapDataSource);

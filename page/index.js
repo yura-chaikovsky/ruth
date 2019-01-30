@@ -1,11 +1,15 @@
 import {Ruth, Routing, Events} from "./../index";
+import Component from "./../component";
 
 
-export class Page {
+export class Page extends Component {
 
     constructor(options, scope) {
-        this.$mounted = false;
+        super();
+
+        this.$children = [];
         this.$elements = {};
+        this.$mounted = false;
         this.$options = Object.assign({
             pathname: /.*/,
             mountTo: "body",
@@ -23,10 +27,10 @@ export class Page {
         });
 
         Object.assign(this, scope);
-        requestAnimationFrame(this.$createPage.bind(this));
+        requestAnimationFrame(this.$create.bind(this));
     }
 
-    $createPage() {
+    $create() {
         console.info("Call $watchRoute from $createPage()", this);
         Events.on("routing", this.$watchRoute, this);
     }
@@ -44,54 +48,24 @@ export class Page {
     }
 
     $mountPage() {
-        if (this.$options.view) {
-            this.$dom = this.$options.view.call(this, Ruth);
-            this.$collectElements();
-            this.$root = document.querySelector(this.$options.mountTo);
-            this.$root.appendChild(this.$dom);
-            this.$options.mount.call(this);
-        }
+        this.$dom = this.$options.view.call(this, Ruth);
+        super.$create();
+        this.$root = document.querySelector(this.$options.mountTo);
+        this.$root.appendChild(this.$dom);
+        this.$options.mount.call(this);
 
-        this.$bindEvents(true);
         this.$mounted = true;
     }
 
     $unmountPage() {
         this.$options.unmount.call(this);
-        this.$bindEvents(false);
-        if (this.$options.view) {
-            this.$root.removeChild(this.$dom);
-            this.$dom = null;
-            this.$elements = {};
-        }
+        this.$elements = {};
+        super.$destroy();
+        this.$root.removeChild(this.$dom);
+        this.$dom = null;
+        this.$root = null;
+
         this.$mounted = false;
-    }
-
-    $bindEvents(on) {
-        Object.keys(this.$options.events).forEach(eventDeclaration => {
-            let [, event, label, globalObject] = eventDeclaration.match(/^([\w\-]+)(?: (?:(\$\w+)|(window|document)))?$/) || [];
-            let targets;
-
-            if(!event) {
-                throw new Error(`Syntax error in event declaration: ${eventDeclaration}`);
-            }
-
-            if(label) {
-                targets = this.$dom.querySelectorAll(`[data-label='${label.substr(1)}']`);
-            } else if(globalObject) {
-                targets = [ globalObject === "window"? window : document ];
-            } else {
-                targets = [ Events ];
-            }
-
-            targets.forEach(node => {
-                node[on ? "addEventListener" : "removeEventListener"](event, this[this.$options.events[eventDeclaration]]);
-            });
-        });
-    }
-
-    $collectElements() {
-        this.$dom.querySelectorAll("[data-label]").forEach(element => this.$elements[element.dataset.label] = element)
     }
 
 }
