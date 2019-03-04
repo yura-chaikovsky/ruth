@@ -9,6 +9,7 @@ export class Page extends Component {
 
         this.$children = [];
         this.$elements = {};
+        this.$groups = {};
         this.$mounted = false;
         this.$options = Object.assign({
             pathname: /.*/,
@@ -58,21 +59,16 @@ export class Page extends Component {
 
     $unmountPage() {
         this.$options.unmount.call(this);
-        this.$elements = {};
         super.$destroy();
-        this.$root.removeChild(this.$dom);
-        this.$dom = null;
-        this.$root = null;
 
         this.$mounted = false;
     }
 
     $updatePage() {
-        const oldDom = this.$dom;
         this.$destroy();
         this.$dom = this.$options.view.call(this, Ruth);
         this.$create();
-        this.$root.replaceChild(this.$dom, oldDom);
+        this.$root.appendChild(this.$dom);
         this.$dom.classList.add("mounted");
     }
 

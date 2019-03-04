@@ -25,6 +25,7 @@ class DirectiveConstructor extends Component {
 
         this.$children = [];
         this.$elements = {};
+        this.$groups = {};
         this.$options = Object.assign({
             name: "",
             events: {},
@@ -51,7 +52,6 @@ class DirectiveConstructor extends Component {
 
     $destroy() {
         this.$options.unmount.call(this);
-        this.$elements = {};
         super.$destroy();
     }
 
