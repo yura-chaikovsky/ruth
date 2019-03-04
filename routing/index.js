@@ -5,7 +5,7 @@ class RoutingMachine {
     constructor() {
         this.name = "RoutingMachine";
 
-        window.addEventListener('popstate', event => {
+        window.addEventListener("popstate", event => {
             this.navigate(event.state);
         });
 
