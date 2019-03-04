@@ -18,10 +18,12 @@ export const Form = {
             if (pattern = key.match(/\[(\d*)\]$/)) {
                 key = key.slice(0, pattern.index);
                 (!container[key]) && (container[key] = []);
-                if (container[key][pattern[1]]) {
-                    container = container[key];
-                    key = pattern[1];
+                const index = pattern[1] || container[key].length;
+                if (container[key][index] === undefined) {
+                    container[key][index] = {};
                 }
+                container = container[key];
+                key = index;
             } else {
                 (!container[key]) && (container[key] = {});
             }
@@ -35,6 +37,15 @@ export const Form = {
             } else {
                 accessor(container[key], keys, value);
             }
+        };
+
+        const reindexArrays = (obj) => {
+            if(typeof obj === "object"){
+                for(const key in obj) {
+                    obj[key] = reindexArrays(obj[key]);
+                }
+            }
+            return Array.isArray(obj)? obj.filter(_ => true) : obj;
         };
 
         for (let i = 0; i < form.elements.length; ++i) {
@@ -53,10 +64,9 @@ export const Form = {
 
                 accessor(data, el.name.split("."), value, {});
             }
-
         }
 
-        return data;
+        return reindexArrays(data);
     },
 
 };
