@@ -28,7 +28,7 @@ export default class Component {
     }
 
     $emit(eventName, detail) {
-        this.$dom.dispatchEvent(new CustomEvent(eventName, {bubbles: true, detail}));
+        this.$dom.dispatchEvent(new CustomEvent(eventName, {bubbles: true, detail: {component: this, ...detail}}));
     }
 
     $collectElements() {
