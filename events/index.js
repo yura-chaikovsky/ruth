@@ -31,6 +31,7 @@ class EventsHandler {
 // aliased for compatibility
 EventsHandler.prototype.addEventListener = EventsHandler.prototype.on;
 EventsHandler.prototype.removeEventListener = EventsHandler.prototype.off;
+EventsHandler.prototype.dispatchEvent = EventsHandler.prototype.emit;
 
 
 export const Events = new EventsHandler();
