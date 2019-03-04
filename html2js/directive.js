@@ -1,3 +1,5 @@
+const esc = require("html2js-compiler").esc;
+
 
 function addDirectiveNodeType(ast) {
     ast.forEach(node => {
@@ -21,12 +23,18 @@ function directiveGenerator(astNode, varName, parentNodeVarName, variables, leve
     let scope = "{}";
 
     astNode.attributes.forEach(({key, value}) => {
-        if(key === "scope") scope = value;
+        if(key === "scope") {
+            scope = value;
+        } else {
+            prefix.push(pad + `${varName}.setAttribute("${key}", \`${esc(value)}\`);`);
+        }
     });
 
-    prefix.push(pad + `${parentNodeVarName}.appendChild(this.$addChild(Ruth.directives["${astNode.tagName.toLowerCase()}"](${scope})))`);
+    prefix.unshift(pad + `${varName} = this.$addChild(Ruth.directives["${astNode.tagName.toLowerCase()}"](${scope}));`);
 
-    return {prefix, suffix};
+    prefix.push(pad + `${parentNodeVarName}.appendChild(${varName})`);
+
+    return {prefix, suffix, domNode: true};
 }
 
 module.exports = {
