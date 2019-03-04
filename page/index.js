@@ -14,7 +14,7 @@ export class Page extends Component {
             pathname: /.*/,
             mountTo: "body",
             events: {},
-            view: null,
+            view: () => document.createElement("div"),
             init: () => {},
             mount: () => {},
             unmount: () => {}
@@ -27,11 +27,6 @@ export class Page extends Component {
         });
 
         Object.assign(this, scope);
-        requestAnimationFrame(this.$create.bind(this));
-    }
-
-    $create() {
-        console.info("Call $watchRoute from $createPage()", this);
         Events.on("routing", this.$watchRoute, this);
     }
 
@@ -52,6 +47,10 @@ export class Page extends Component {
         super.$create();
         this.$root = document.querySelector(this.$options.mountTo);
         this.$root.appendChild(this.$dom);
+        //hack to force re-render
+        window.getComputedStyle(this.$dom).opacity;
+        window.scrollTo(0, 0);
+        this.$dom.classList.add("mounted");
         this.$options.mount.call(this);
 
         this.$mounted = true;
@@ -66,6 +65,15 @@ export class Page extends Component {
         this.$root = null;
 
         this.$mounted = false;
+    }
+
+    $updatePage() {
+        const oldDom = this.$dom;
+        this.$destroy();
+        this.$dom = this.$options.view.call(this, Ruth);
+        this.$create();
+        this.$root.replaceChild(this.$dom, oldDom);
+        this.$dom.classList.add("mounted");
     }
 
 }
