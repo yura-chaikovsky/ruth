@@ -3,6 +3,8 @@ import {Events} from "../events";
 class RoutingMachine {
 
     constructor() {
+        this.name = "RoutingMachine";
+
         window.addEventListener('popstate', event => {
             this.navigate(event.state);
         });
