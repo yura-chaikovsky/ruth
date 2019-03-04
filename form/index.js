@@ -9,8 +9,8 @@ export const Form = {
             let container, pattern;
 
             if (Array.isArray(obj)) {
-                container = {}
-                obj.push(container)
+                container = {};
+                obj.push(container);
             } else {
                 container = obj;
             }
@@ -41,7 +41,7 @@ export const Form = {
             el = form.elements[i];
             if (!el.disabled && el.name !== "") {
                 if (el.type === "checkbox") {
-                    el.checked && accessor(data, el.name, el.value, []);
+                    el.checked && accessor(data, [el.name], el.value, []);
                     continue;
                 } else if (el.type === "number") {
                     value = +el.value;
@@ -59,9 +59,4 @@ export const Form = {
         return data;
     },
 
-    updateSignals(form, signals) {
-        const model = this.serialize(form);
-        Object.keys(model).forEach(key => signals[key](model[key]));
-    }
-
-}
+};

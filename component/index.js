@@ -5,7 +5,7 @@ export default class Component {
 
     $bindEvents(on) {
         Object.keys(this.$options.events).forEach(eventDeclaration => {
-            let [, event, label, globalObject] = eventDeclaration.match(/^([\w\-]+)(?: (?:(\$\w+)|(window|document)))?$/) || [];
+            let [, event, label, globalObject] = eventDeclaration.match(/^([\w\-\/]+)(?: (?:(\$\w+)|(window|document)))?$/) || [];
             let targets;
 
             if(!event) {
