@@ -8,6 +8,9 @@ export const Ruth = {
     directives: {},
 
     addComponent(component) {
+        if(!component.name) {
+            throw new Error(`Invalid component name: '${component.name}'.`);
+        }
         if (component.name in RuthComponentsMap) {
             throw new Error(`Component '${component.name}' already registered.`);
         } else {
