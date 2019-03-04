@@ -9,7 +9,7 @@ export class Directive {
             throw new Error(`Directive '${options.name}' already registered.`);
         }
 
-        Ruth.directives[options.name.toLowerCase()] = function ({scope = {}}) {
+        Ruth.directives[options.name.toLowerCase()] = function (scope = {}) {
             const directiveScope = Object.assign({}, rootScope, scope);
             return new DirectiveConstructor(options, directiveScope);
         };
