@@ -42,7 +42,7 @@ export class RuthHttp {
                 return response;
             })
             .then(function (response) {
-                return response.status === 204? response.text() : response.json();
+                return [201, 204].indexOf(response.status) > -1? response.text() : response.json();
             });
     }
 

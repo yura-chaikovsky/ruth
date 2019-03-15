@@ -7,7 +7,6 @@ Ruth.addComponent(Routing);
 // Expose navigation method in Ruth object to be used as a shortcut for templates.
 window.ruthNavigate = function(event) {event.preventDefault(); Routing.navigate(event.currentTarget.pathname)};
 
-window.Routing = Routing;
 // Expose helper function in Ruth object
 Object.assign(Ruth, Tools);
 

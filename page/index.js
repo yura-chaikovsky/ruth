@@ -32,7 +32,6 @@ export class Page extends Component {
     }
 
     $watchRoute() {
-        console.info("Execute $watchRoute", this.constructor.name);
         const routeMatches = Routing.state.pathname.match(this.$options.pathname);
 
         if (routeMatches && !this.$mounted) {
@@ -59,16 +58,19 @@ export class Page extends Component {
 
     $unmountPage() {
         this.$options.unmount.call(this);
+        this.$dom.parentNode.removeChild(this.$dom);
         super.$destroy();
 
         this.$mounted = false;
     }
 
     $updatePage() {
+        const _oldDom = this.$dom;
+
         this.$destroy();
         this.$dom = this.$options.view.call(this, Ruth);
         this.$create();
-        this.$root.appendChild(this.$dom);
+        _oldDom.replaceWith(this.$dom);
         this.$dom.classList.add("mounted");
     }
 

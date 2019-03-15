@@ -29,7 +29,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin([BUILD_PATH], {root: path.join(__dirname, "./../")}),
+        new CleanWebpackPlugin(),
         new CopyWebpackPlugin([{from: "./../src/assets", to: BUILD_PATH + "/assets/"}]),
         new Webpack.ProvidePlugin({Surplus: "surplus"}),
         new ExtractTextPlugin("main.css", {options: {allChunks: true}})

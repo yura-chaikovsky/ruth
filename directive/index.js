@@ -10,7 +10,7 @@ export class Directive {
         }
 
         Ruth.directives[options.name.toLowerCase()] = function (scope = {}) {
-            const directiveScope = Object.assign({}, rootScope, scope);
+            const directiveScope = Object.assign({}, rootScope, JSON.parse(JSON.stringify(rootScope)), scope);
             return new DirectiveConstructor(options, directiveScope);
         };
 
@@ -50,8 +50,19 @@ class DirectiveConstructor extends Component {
         this.$options.mount.call(this);
     }
 
+
+    $update() {
+        const _oldDom = this.$dom;
+
+        super.$destroy();
+        this.$dom = this.$options.view.call(this, Ruth);
+        super.$create();
+        _oldDom.replaceWith(this.$dom);
+    }
+
     $destroy() {
         this.$options.unmount.call(this);
+        this.$dom.parentNode.removeChild(this.$dom);
         super.$destroy();
     }
 

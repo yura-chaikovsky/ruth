@@ -44,7 +44,6 @@ export default class Component {
     $destroy() {
         this.$bindEvents(false);
         this.$children.forEach(child => this.$destroyChild(child));
-        this.$dom.parentNode.removeChild(this.$dom);
         this.$dom = null;
         this.$elements = {};
         this.$groups = {};
