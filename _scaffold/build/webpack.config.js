@@ -6,7 +6,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 
 const BUILD_PATH = path.join(__dirname, "./../dist");
-const MODE = "development";
+const MODE = process.env.NODE_ENV || "development";
 // //"ruth": "git+https://github.com/yura-chaikovsky/ruth.git",
 
 module.exports = {
@@ -24,7 +24,7 @@ module.exports = {
     module: {
         rules: [
             {test: /\.tpl?$/, use: ["./html2js-loader.js"] },
-            {test: /\.scss$/, use: ExtractTextPlugin.extract({use: ["css-loader", "sass-loader"]}) },
+            {test: /\.css$/, use: ExtractTextPlugin.extract({use: ["css-loader"]}) },
             {test: /\.(png|jpg|gif|html)$/, use: ["file-loader?name=[name].[ext]"]}
         ]
     },
