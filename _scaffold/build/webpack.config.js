@@ -5,7 +5,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 
-const BUILD_PATH = path.join(__dirname, "./../dist");
+const BUILD_PATH = path.join(__dirname, "./../release");
 const MODE = process.env.NODE_ENV || "development";
 // //"ruth": "git+https://github.com/yura-chaikovsky/ruth.git",
 
@@ -31,7 +31,6 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin([{from: "./../src/assets", to: BUILD_PATH + "/assets/"}]),
-        new Webpack.ProvidePlugin({Surplus: "surplus"}),
         new ExtractTextPlugin("main.css", {options: {allChunks: true}})
     ],
     devServer: {
