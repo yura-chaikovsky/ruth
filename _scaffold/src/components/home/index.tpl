@@ -2,6 +2,7 @@
 
     <OnlineStatus />
 
-    <a onClick={>navigate("/_storage")} class="link">View Storage</a>
+    <a href="~/monitoring" class="link">View Storage</a>
+
 
 </div>
