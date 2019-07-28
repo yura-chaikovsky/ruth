@@ -1,16 +1,11 @@
-import Config from "./../../config/index";
-import ua_uk from "./uk-ua/index";
+import {Ruth, i18n} from "ruth";
+import Config from "./../../../config";
+import ua_uk from "./uk-ua";
 
-const Dictionary = {
+const dictionary = {
     "ua-uk": ua_uk
 };
 
-export default function (key, ...params) {
-    if(typeof Dictionary[Config.i18n][key] === "undefined"){
-        throw new Error(`Internationalization for key '${key}' not found in language '${Config.i18n}'.`);
-    }
+Ruth.i18n = i18n.set(dictionary, Config.i18n);
 
-    return typeof Dictionary[Config.i18n][key] === "string"?
-        Dictionary[Config.i18n][key]
-        : Dictionary[Config.i18n][key].apply(null, params);
-}
+export default Ruth.i18n;
