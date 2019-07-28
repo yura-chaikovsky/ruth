@@ -4,15 +4,15 @@ export default class Component {
 
     $bindEvents(on) {
         Object.keys(this.$options.events).forEach(eventDeclaration => {
-            let [, event, elementlabel, groupLabel, globalObject] = eventDeclaration.match(/^([\w\-\/]+)(?: (?:(\$\w+)|(\$\$\w+)|(window|document)))?$/) || [];
+            let [, event, elementLabel, groupLabel, globalObject] = eventDeclaration.match(/^([\w\-\/]+)(?: (?:(\$\w+)|(\$\$\w+)|(window|document)))?$/) || [];
             let targets;
 
             if (!event) {
                 throw new Error(`Syntax error in event declaration: ${eventDeclaration}`);
             }
 
-            if (elementlabel) {
-                targets = this.$dom.querySelectorAll(`[data-label='${elementlabel.substr(1)}']`);
+            if (elementLabel) {
+                targets = this.$dom.querySelectorAll(`[data-label='${elementLabel.substr(1)}']`);
             } else if (groupLabel) {
                 targets = this.$dom.querySelectorAll(`[data-group-label='${groupLabel.substr(2)}']`);
             } else if (globalObject) {
