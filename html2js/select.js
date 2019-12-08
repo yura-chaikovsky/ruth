@@ -23,7 +23,7 @@ function selectElementGenerator(astNode, varName, parentNodeVarName, variables, 
 
     for (let i in astNode.attributes) {
         if(astNode.attributes[i].key === "value") {
-            suffix.push(pad + `${varName}.value = \`${esc(astNode.attributes[i].value)}\`;`);
+            suffix.push(pad + `${varName}.selectedIndex = (Array.from(${varName}.options).find(option => option.value === \`${esc(astNode.attributes[i].value)}\`) || {index:0}).index;`);
         } else {
             prefix.push(pad + `${varName}.setAttribute("${astNode.attributes[i].key}", \`${esc(astNode.attributes[i].value)}\`);`);
         }
