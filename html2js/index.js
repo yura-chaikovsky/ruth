@@ -4,6 +4,7 @@ const entities = require("./entities");
 const anchors = require("./anchors");
 const repeater = require("./repeater");
 const directive = require("./directive");
+const select = require("./select");
 
 
 const compilerOptions = {
@@ -13,14 +14,16 @@ const compilerOptions = {
             reference.replaceDotReference,
             anchors.replaceAnchorReference,
             directive.addDirectiveNodeType,
-            repeater.addRepeaterNodeType
+            repeater.addRepeaterNodeType,
+            select.addSelectNodeType
         ],
         removeEmptyNodes: true
     },
     compiler: {
         generators: {
             "directive": directive.directiveGenerator,
-            "repeater": repeater.repeaterGenerator
+            "repeater": repeater.repeaterGenerator,
+            "select-element": select.selectElementGenerator
         }
     }
 };
